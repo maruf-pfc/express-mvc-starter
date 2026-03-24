@@ -1,0 +1,39 @@
+# Feature Request
+name: 🚀 Feature Request
+description: Suggest an idea or improvement for this starter
+title: '[Feature]: '
+labels: ['enhancement']
+assignees: ['maruf-pfc']
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please describe it as clearly as possible.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear description of the problem. e.g. "I always have to ..."
+      placeholder: The problem I'm facing is...
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: What would you like to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative solutions or features you've considered?
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature here.
