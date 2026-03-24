@@ -1,9 +1,3 @@
 # Test runner configuration
 [test]
-# Timeout per test in milliseconds
 timeout = 10000
-
-# Coverage configuration (run with: bun test --coverage)
-[test.coverage]
-include = ["src/**/*.ts"]
-exclude = ["src/**/*.test.ts", "src/__tests__/**"]
