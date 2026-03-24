@@ -251,6 +251,15 @@ touch src/__tests__/routes/user.test.ts
 
 ---
 
+## 🤝 Community
+
+- [Contributing Guide](./CONTRIBUTING.md) — How to contribute
+- [Code of Conduct](./CODE_OF_CONDUCT.md) — Community standards
+- [Security Policy](./SECURITY.md) — How to report vulnerabilities
+- [Changelog](./CHANGELOG.md) — What changed in each version
+
+---
+
 ## 📄 License
 
 MIT © [Md. Maruf Sarker](https://github.com/maruf-pfc)

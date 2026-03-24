@@ -1,0 +1,12 @@
+# CODEOWNERS — automatic review requests for pull requests
+# Syntax: <pattern> <@github-username or @org/team>
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @maruf-pfc
+
+# CI/CD workflows
+.github/workflows/ @maruf-pfc
+
+# Core application
+src/ @maruf-pfc

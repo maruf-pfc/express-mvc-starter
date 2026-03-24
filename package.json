@@ -4,6 +4,9 @@
   "description": "Production-ready Express 5 + TypeScript + MongoDB starter — MVC/Layered architecture",
   "main": "src/server.ts",
   "type": "module",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
   "scripts": {
     "dev": "bun --watch run src/server.ts",
     "start": "bun run src/server.ts",
