@@ -108,7 +108,7 @@ Model           → Mongoose schema / database queries
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/your-username/express-mvc-starter.git
+git clone https://github.com/maruf-pfc/express-mvc-starter.git
 cd express-mvc-starter
 bun install
 ```
