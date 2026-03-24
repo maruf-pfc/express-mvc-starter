@@ -31,7 +31,7 @@ By participating in this project, you agree to abide by the [Code of Conduct](./
 
 ```bash
 # 1. Fork the repository and clone your fork
-git clone https://github.com/<your-username>/express-mvc-starter.git
+git clone https://github.com/maruf-pfc/express-mvc-starter.git
 cd express-mvc-starter
 
 # 2. Install dependencies

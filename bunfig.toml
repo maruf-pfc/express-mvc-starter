@@ -1,7 +1,5 @@
 # Test runner configuration
 [test]
-# Match test files in any __tests__ directory or files ending in .test.ts
-preload = []
 # Timeout per test in milliseconds
 timeout = 10000
 
