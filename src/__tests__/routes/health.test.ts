@@ -1,19 +1,34 @@
-import { describe, test, expect } from 'bun:test';
+import { describe, test, expect, beforeAll, afterAll } from 'bun:test';
+import type { Server } from 'http';
 import app from '../../app.ts';
 
 /**
  * Integration tests for the Health route.
  *
- * These tests spin up the Express app without a real database.
- * We test the HTTP layer only (routes → controller → service).
- * The service returns mongoose.connection.readyState which will be
- * 0 (disconnected) in this context — that's perfectly fine for route tests.
+ * Spins up a real HTTP server on a random port, runs tests via fetch,
+ * then shuts it down — no database connection needed.
  */
+let server: Server;
+let baseUrl: string;
+
+beforeAll(async () => {
+  await new Promise<void>((resolve) => {
+    server = app.listen(0, () => {
+      const addr = server.address();
+      const port = typeof addr === 'object' && addr ? addr.port : 0;
+      baseUrl = `http://localhost:${port}`;
+      resolve();
+    });
+  });
+});
+
+afterAll(() => {
+  server.close();
+});
+
 describe('GET /api/v1/health', () => {
   test('should return 200 with correct shape', async () => {
-    const req = new Request('http://localhost/api/v1/health');
-    const res = await app.handle(req);
-
+    const res = await fetch(`${baseUrl}/api/v1/health`);
     expect(res.status).toBe(200);
 
     const body = (await res.json()) as {
@@ -33,9 +48,7 @@ describe('GET /api/v1/health', () => {
 
 describe('GET /api/v1/nonexistent', () => {
   test('should return 404 for unknown routes', async () => {
-    const req = new Request('http://localhost/api/v1/nonexistent');
-    const res = await app.handle(req);
-
+    const res = await fetch(`${baseUrl}/api/v1/nonexistent`);
     expect(res.status).toBe(404);
 
     const body = (await res.json()) as { success: boolean; message: string };
