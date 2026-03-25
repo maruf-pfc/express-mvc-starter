@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
+import Health, { type IHealth } from '../models/health.model.ts';
 
 /**
- * HealthService — business logic for the /health route.
- *
- * In a real project, services are responsible for all data-access
- * and domain logic. Controllers stay thin and delegate here.
+ * HealthService — business logic for the health domain.
  */
+
 const getHealthStatus = () => {
   const dbState = mongoose.connection.readyState;
 
@@ -24,6 +23,22 @@ const getHealthStatus = () => {
   };
 };
 
-const healthService = { getHealthStatus };
+/**
+ * Creates a new health "ping" record in the database.
+ * Demonstrates a standard create operation formatting data for the DB.
+ */
+const createHealthPing = async (message: string): Promise<IHealth> => {
+  const healthRecord = await Health.create({
+    message,
+    source: 'user-ping',
+  });
+
+  return healthRecord;
+};
+
+const healthService = {
+  getHealthStatus,
+  createHealthPing,
+};
 
 export default healthService;

@@ -43,24 +43,32 @@ express-mvc-starter/
 │   │   └── utils/
 │   │       ├── ApiError.test.ts
 │   │       └── ApiResponse.test.ts
-│   ├── config/
-│   │   └── index.ts             # Env vars loaded via dotenv
+│   ├── constants/
+│   │   ├── http.ts              # HttpStatus codes
+│   │   └── messages.ts          # Common response strings
 │   ├── controllers/
 │   │   └── health.controller.ts # Request handler → delegates to service
 │   ├── db/
 │   │   └── connectDB.ts         # Mongoose connection
+│   ├── helpers/
+│   │   └── pagination.ts        # Pure, reusable helpers (e.g., pagination)
 │   ├── interfaces/
-│   │   └── index.ts             # Shared TypeScript interfaces
+│   │   └── index.ts             # Shared global interfaces
 │   ├── middlewares/
 │   │   ├── globalErrorHandler.ts
-│   │   └── notFound.ts
+│   │   ├── notFound.ts
+│   │   └── validate.ts          # Zod request validation hook
 │   ├── models/
-│   │   └── health.model.ts      # Demo Mongoose model
+│   │   └── health.model.ts      # Scalable Mongoose schema
 │   ├── routes/
 │   │   ├── health.routes.ts     # Feature router
 │   │   └── index.ts             # Mounts all routers under /api/v1
+│   ├── schemas/
+│   │   └── health.schema.ts     # Zod validation schemas
 │   ├── services/
 │   │   └── health.service.ts    # Business logic layer
+│   ├── types/
+│   │   └── express.d.ts         # Express augmented types (e.g. req.user)
 │   ├── utils/
 │   │   ├── ApiError.ts
 │   │   ├── ApiResponse.ts
@@ -247,6 +255,7 @@ touch src/__tests__/routes/user.test.ts
 | `helmet` | Security headers |
 | `cors` | Cross-origin support |
 | `morgan` | HTTP request logging |
+| `zod` | Request payload validation |
 | `dotenv` | Environment variable loading |
 
 ---

@@ -38,7 +38,7 @@ describe('GET /api/v1/health', () => {
     };
 
     expect(body.success).toBe(true);
-    expect(body.message).toBe('Service is healthy');
+    expect(body.message).toBe('Operation successful');
     expect(body.data.status).toBe('ok');
     expect(body.data).toHaveProperty('timestamp');
     expect(body.data).toHaveProperty('uptime');
@@ -55,4 +55,35 @@ describe('GET /api/v1/nonexistent', () => {
     expect(body.success).toBe(false);
     expect(body.message).toContain('Route not found');
   });
+});
+
+describe('POST /api/v1/health', () => {
+  test('should return 422 if message is missing', async () => {
+    const res = await fetch(`${baseUrl}/api/v1/health`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+
+    expect(res.status).toBe(422);
+    const body = (await res.json()) as { success: boolean; message: string };
+    expect(body.success).toBe(false);
+    expect(body.message).toBe('message is required');
+  });
+
+  test('should return 422 if message is too short', async () => {
+    const res = await fetch(`${baseUrl}/api/v1/health`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'hi' }),
+    });
+
+    expect(res.status).toBe(422);
+    const body = (await res.json()) as { success: boolean; message: string };
+    expect(body.success).toBe(false);
+    expect(body.message).toBe('message must be at least 3 characters long');
+  });
+
+  // Note: We don't test a successful 201 creation without a DB connection mock,
+  // to avoid needing a live MongoDB instance for this suite.
 });

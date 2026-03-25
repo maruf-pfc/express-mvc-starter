@@ -1,34 +1,47 @@
-import mongoose, { Schema, type Document } from 'mongoose';
+import type { Document } from 'mongoose';
+import mongoose, { Schema, type Model } from 'mongoose';
 
 /**
- * IHealthCheck — document interface for the HealthCheck model.
- *
- * Replace this with your own domain entity.
- * This model exists solely to demonstrate the Mongoose pattern in this starter.
+ * Interface representing a Health document in MongoDB.
  */
-export interface IHealthCheck extends Document {
-  status: string;
-  checkedAt: Date;
+export interface IHealth extends Document {
+  message: string;
+  source: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-const HealthCheckSchema = new Schema<IHealthCheck>(
+/**
+ * Proper Mongoose schema for the Health model, demonstrating:
+ * 1. Typed interface (IHealth)
+ * 2. Automatic timestamps
+ * 3. Schema definition with validations
+ * 4. Indexing for performance
+ */
+const healthSchema = new Schema<IHealth>(
   {
-    status: {
+    message: {
       type: String,
       required: true,
-      default: 'ok',
+      trim: true,
     },
-    checkedAt: {
-      type: Date,
-      default: () => new Date(),
+    source: {
+      type: String,
+      default: 'api',
+      trim: true,
     },
   },
   {
-    timestamps: true,
-    versionKey: false,
+    timestamps: true, // Automatically manages createdAt and updatedAt
   }
 );
 
-const HealthCheck = mongoose.model<IHealthCheck>('HealthCheck', HealthCheckSchema);
+// Example of an index to speed up queries by source
+healthSchema.index({ source: 1 });
 
-export default HealthCheck;
+/**
+ * Health Model
+ */
+const Health: Model<IHealth> = mongoose.model<IHealth>('Health', healthSchema);
+
+export default Health;
